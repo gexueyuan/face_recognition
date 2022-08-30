@@ -34,11 +34,23 @@ def prev_id(current_id, worker_num):
 # A subprocess use to capture frames.
 def capture(read_frame_list, Global, worker_num):
     # Get a reference to webcam #0 (the default one)
-    video_capture = cv2.VideoCapture(0)
+#    video_capture = cv2.VideoCapture(0)
+# selfpath
+    previewDevs=[]
+# mainpath
+    pictureDevs=[]
+
+    previewDevs.append("/dev/video1")
+    cam_width=640
+    cam_height=480
+    def get_camerasrc(index):
+            return 'rkisp device='+previewDevs[index]+' io-mode=4 ! video/x-raw,format=NV12,width='+str(cam_width)+',height='+str(cam_height)+',framerate=30/1 ! videoconvert ! appsink'
+                
+    video_capture = cv2.VideoCapture(get_camerasrc(0), cv2.CAP_GSTREAMER) 
     # video_capture.set(3, 640)  # Width of the frames in the video stream.
     # video_capture.set(4, 480)  # Height of the frames in the video stream.
     # video_capture.set(5, 30) # Frame rate.
-    print("Width: %d, Height: %d, FPS: %d" % (video_capture.get(3), video_capture.get(4), video_capture.get(5)))
+  #  print("Width: %d, Height: %d, FPS: %d" % (video_capture.get(3), video_capture.get(4), video_capture.get(5)))
 
     while not Global.is_exit:
         # If it's time to read a frame

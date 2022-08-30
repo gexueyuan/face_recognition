@@ -8,8 +8,19 @@ import cv2
 # specific demo. If you have trouble installing it, try any of the other demos that don't require it instead.
 
 # Get a reference to webcam #0 (the default one)
-video_capture = cv2.VideoCapture(0)
+#video_capture = cv2.VideoCapture(0)
+# selfpath
+previewDevs=[]
+# mainpath
+pictureDevs=[]
 
+previewDevs.append("/dev/video1")
+cam_width=640
+cam_height=480
+def get_camerasrc(index):
+            return 'rkisp device='+previewDevs[index]+' io-mode=4 ! video/x-raw,format=NV12,width='+str(cam_width)+',height='+str(cam_height)+',framerate=30/1 ! videoconvert ! appsink'
+                
+video_capture = cv2.VideoCapture(get_camerasrc(0), cv2.CAP_GSTREAMER) 
 # Initialize some variables
 face_locations = []
 

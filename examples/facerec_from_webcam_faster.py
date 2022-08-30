@@ -12,24 +12,104 @@ import numpy as np
 # specific demo. If you have trouble installing it, try any of the other demos that don't require it instead.
 
 # Get a reference to webcam #0 (the default one)
-video_capture = cv2.VideoCapture(0)
+#video_capture = cv2.VideoCapture(0)
+# selfpath
+previewDevs=[]
+# mainpath
+pictureDevs=[]
 
+previewDevs.append("/dev/video1")
+cam_width=640
+cam_height=480
+def get_camerasrc(index):
+            return 'rkisp device='+previewDevs[index]+' io-mode=4 ! video/x-raw,format=NV12,width='+str(cam_width)+',height='+str(cam_height)+',framerate=30/1 ! videoconvert ! appsink'
+                
+video_capture = cv2.VideoCapture(get_camerasrc(0), cv2.CAP_GSTREAMER) 
 # Load a sample picture and learn how to recognize it.
-obama_image = face_recognition.load_image_file("obama.jpg")
+obama_image = face_recognition.load_image_file("gexueyuan.jpg")
 obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
 
 # Load a second sample picture and learn how to recognize it.
-biden_image = face_recognition.load_image_file("biden.jpg")
+biden_image = face_recognition.load_image_file("paul1.jpg")
 biden_face_encoding = face_recognition.face_encodings(biden_image)[0]
 
+# Load a second sample picture and learn how to recognize it.
+wang_image = face_recognition.load_image_file("wangpeng.jpg")
+wang_face_encoding = face_recognition.face_encodings(wang_image)[0]
+
+# Load a second sample picture and learn how to recognize it.
+qiao_image = face_recognition.load_image_file("qiaochangfu.jpg")
+qiao_face_encoding = face_recognition.face_encodings(qiao_image)[0]
+
+# Load a second sample picture and learn how to recognize it.
+zhang_image = face_recognition.load_image_file("zhangzhiyong.jpg")
+zhang_face_encoding = face_recognition.face_encodings(zhang_image)[0]
+
+
+# Load a second sample picture and learn how to recognize it.
+li_image = face_recognition.load_image_file("lihejun1.jpg")
+li_face_encoding = face_recognition.face_encodings(li_image)[0]
+
+# Load a second sample picture and learn how to recognize it.
+niu_image = face_recognition.load_image_file("niuyunzhu1.jpg")
+niu_face_encoding = face_recognition.face_encodings(niu_image)[0]
+
+# Load a second sample picture and learn how to recognize it.
+tian_image = face_recognition.load_image_file("tianmeiyan.jpg")
+tian_face_encoding = face_recognition.face_encodings(tian_image)[0]
+
+# Load a second sample picture and learn how to recognize it.
+tu_image = face_recognition.load_image_file("tuyanwen1.jpg")
+tu_face_encoding = face_recognition.face_encodings(tu_image)[0]
+
+
+# Load a second sample picture and learn how to recognize it.
+yinan_image = face_recognition.load_image_file("liyinan1.jpg")
+yinan_face_encoding = face_recognition.face_encodings(yinan_image)[0]
+
+
+a1_image = face_recognition.load_image_file("1.jpg")
+a2_image = face_recognition.load_image_file("2.jpg")
+a3_image = face_recognition.load_image_file("3.jpg")
+a4_image = face_recognition.load_image_file("4.jpg")
+a1_face_encoding = face_recognition.face_encodings(a1_image)[0]
+a2_face_encoding = face_recognition.face_encodings(a2_image)[0]
+a3_face_encoding = face_recognition.face_encodings(a3_image)[0]
+a4_face_encoding = face_recognition.face_encodings(a4_image)[0]
 # Create arrays of known face encodings and their names
 known_face_encodings = [
     obama_face_encoding,
-    biden_face_encoding
+    biden_face_encoding,
+    wang_face_encoding,
+    qiao_face_encoding,
+    zhang_face_encoding,
+
+    li_face_encoding,
+    niu_face_encoding,
+    tian_face_encoding,
+    tu_face_encoding,
+    yinan_face_encoding,
+
+    a1_face_encoding,
+    a2_face_encoding,
+    a3_face_encoding,
+    a4_face_encoding
 ]
 known_face_names = [
-    "Barack Obama",
-    "Joe Biden"
+    "gexueyuan",
+    "paul",
+    "wangpeng",
+    "qiaochangfu",
+    "zhangzhiyong",
+    "lihejun",
+    "niuyunzhu",
+    "tianmeiyan",
+    "tuyanwen",
+    "liyinan",
+    "1",
+    "2",
+    "3",
+    "4"
 ]
 
 # Initialize some variables
